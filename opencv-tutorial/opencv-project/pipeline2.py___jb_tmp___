@@ -1,0 +1,56 @@
+# _*_ coding: utf-8 _*_
+# @Time     : 2019/3/8 17:02
+# @Author   : Ole211
+# @Site     : 
+# @File     : pipeline2.py    
+# @Software : PyCharm
+import cv2 as cv
+import numpy as np
+import utils
+from moviepy.editor import VideoFileClip
+
+def thresholding(img):
+    # setting all sorts of thresholds
+    x_thresh = utils.abs_sobel(img, orient='x', thresh_min=10, thresh_max=230)
+    mag_thresh = utils.mag_thresh(img, sonbel_kernel=3, mag_thresh=(30, 150))
+    dir_thresh = utils.dir_threshold(img, sobel_kernel=3, thresh=(0.7, 1.3))
+    hls_thresh = utils.hls_select(img, thresh=(180, 255))
+    lab_thresh = utils.lab_select(img, thresh=(150, 200))
+    luv_thresh = utils.luv_select(img, thresh=(225, 255))
+
+    # thresholding combination
+    thresholded = np.zeros_like(x_thresh)
+    thresholded[((x_thresh == 1) & (mag_thresh == 1)) | ((dir_thresh == 1) & (hl_thresh == 1)) | (lab_thresh == 1) | (luv_thresh == 1)] = 1
+    return thresholded
+
+
+def processing(img, object_points, img_points, M, Minv, left_line, right_line):
+    # camera calibration, image distortion correction 相机校准， 图像扭曲纠正
+    undist = utils.cal_undistsort(img, object_points, img_points)
+    # get the thresholded binary image
+    # perform perspective transform  执行透视化转换
+    thresholded_wraped = cv.warpPerspective(thresholded, M, img.shape[1::-1], flags=cv.INTER_LINEAR)
+
+    # perform detection 执行检测
+    if left_line.detected and right_line.detected:
+        left_fit, right_fit, left_lane_inds, right_lane_inds = utils.find_line_previous(thresholded_wraped,
+                                                                                        left_line.current_fit,
+                                                                                        right_line.current_fit)
+    else:
+        left_fit, right_fit, left_lane_inds, right_lane_inds = utils.find_line(thresholded_wraped)
+    left_line.update(left_fit)
+    right_line.update(right_fit)
+..,,RTTT    P  U'P8'
+    return result
+
+left_line = Line()
+right_line = Line()
+cal_imgs = utils.get_images_by_dir('')
+obj_points, img_points = utils.calibrate(cla_imgs, grid=(9, 6))
+M, Minv = utils.get_M_Minv()
+
+project_outpath = ''
+project_video_clip = VideoFileClip('')
+project_video_out_clip = project_video_clip.fl_image(
+    lambda clip: processing(clip, obj_points, img_points, M, Minv, left_line, right_line))
+project_video_out_clip.write_videofile(project_outpath, audio=False)
