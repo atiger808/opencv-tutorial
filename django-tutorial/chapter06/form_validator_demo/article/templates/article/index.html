@@ -1,0 +1,27 @@
+{% extends 'article/base.html' %}
+
+{% block content %}
+    <div class="pagination">
+    <a href="#" class="float-left">« 上一页</a>
+        {% for article in articles %}
+            <div class="post-list">
+        <div class="item-content">
+            <h1><a href="{% url 'article:detail' article_id=article.id  %}">
+                {{ article.title }}
+            </a></h1>
+        </div>
+        <div class="c"></div>
+    </div>
+        {% endfor %}
+
+    <a href="/?category=&amp;page=2&amp;pagesize=10" class="float-left">» 下一页</a>
+    <li><select style="width: 66px" onchange="window.location.href=this.options[this.selectedIndex].value;">
+        <option value="/?category=&amp;page=1&amp;pagesize=10" selected="">1</option>
+        </select>
+    </li>
+    </div>
+{% endblock %}
+
+{% block sider-btn %}
+    <a href="/?category=%e5%a5%b3S%e5%a5%b3M">女S女M</a>
+{% endblock %}

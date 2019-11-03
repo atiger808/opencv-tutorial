@@ -1,0 +1,36 @@
+8.QuerySet API
+
+返回新的QuerySet的方法：
+
+filter/exclude/annotate: 过滤/排除满足条件的/给模型添加新的字段
+
+在使用QuerySet进行查找的时候， 可以提供的各种操作， 比如过滤完后还有根据某个字段进行排序， 那么这一系列的操作我们可以通过一个非常流畅的 ’链式调用‘ 的方法来进行， 比如要从-文章表中获取标题为123， 并且提取后要将结果根据发布的时间进行排序：
+
+    articles =Article.objects.filter(title='123').order_by('create_time')
+
+可以看出order_by 方法是在filter执行后调用的， 这说明filter返回的对象是一个拥有order_by方法的对象， 而对象正是一个新的QuerySet对象， 因此可以使用order_by方法
+
+下面介绍那些返回新的QuerySet对象的方法：
+
+1. filter: 将满足条件的数据提取出来，  返回一个新的QuerySet对象
+2. exclude:  排除满足条件的数据， 返回一个新的QuerySet， 示例代码：
+       articles = Article.objects.exclude(title__contains='hello')
+
+        以上代码的意思是提取那些标题不包含hello的图书
+
+1. annotate:  给QuerySet中的每个对象添加一个使用的查询方式(聚合函数， F表达式， Q表达式， Func表达式等) 的新字段， 示例代码如下：
+       articles = Article.objects.annotate(author__name=F("author__name"))
+
+      以上代码将在每个对象中添加一个 author__name 字段， 来显示这个文章的作者的年龄
+
+1.  order_by: 指定查询的结果根据某个字段进行排序， 如果要倒叙排序， 那么可以在字段前加个符号。 示例代码如下：
+       根据创建的时间进行正序排序
+       articles = Article.objects.order_by('create_time')
+       根据创建的时间进行倒叙排序
+       articles = Artcle.objects.order_by('-create_time')
+       首先根据创建时间排序， 如果时间相同， 则根据作者的名字进行排序
+       articles = Article.objects.order_by('create_time', 'author_name')
+
+
+
+

@@ -1,0 +1,21 @@
+for .. in .. 标签： 类似于python的for .. in .. 可以遍历列表，元组， 字典等一切可遍历的对象， 示例代码如下：
+
+    {% for person in persons %}
+    	<p> person.name</p>
+    {% endfor %}
+
+如果要反向遍历， 在遍历的时候加上reversed, 示例代码如下：
+
+    {% for person in persons reversed %}
+    	<p> person.name</p>
+    {% endfor %}
+
+for .. in.. empty
+
+        {% for comment in comments %}
+            <li>{{ comment }}</li>
+        {% empty %}
+            <li>没有任何评论</li>
+        {% endfor %}
+
+

@@ -1,0 +1,9 @@
+if 语句笔记
+
+
+1. if标签： if标签相当于python中的if语句， 有elif和else 相对应， 但是所有的标签都需要标签符号 {% %}来包裹， if标签中可以使用 ==, !=, <=, >=, not in, in, is, is not 等判断运算符， 示例代码如下：
+       {% if '张三' in person %}
+       	<p> 张三 </p>
+       {% else %}
+       	<p> 李四 </p>
+       {% endif %}

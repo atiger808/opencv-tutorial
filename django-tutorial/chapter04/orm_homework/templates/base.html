@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>教学管理系统</title>
+    <link rel="stylesheet" href="{% static '/front/base.css' %}">
+</head>
+<body>
+<header>
+    <ul class="nav">
+        <li><a href="{% url 'index' %}">首页</a></li>
+        <li><a href="{% url 'add' %}">添加</a></li>
+    </ul>
+</header>
+{% block content %}
+
+{% endblock %}
+<footer>
+
+</footer>
+</body>
+</html>

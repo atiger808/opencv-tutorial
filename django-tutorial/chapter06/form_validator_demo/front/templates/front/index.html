@@ -1,0 +1,11 @@
+{% extends 'front/base.html' %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="email" placeholder="邮箱"><br>
+    {#    <input type="text" name="price" placeholder="价格"><br>#}
+    {#    <input type="text" name="'website" placeholder="个人网站"><br>#}
+        <input type="text" name="telephone" placeholder="手机号"><br>
+        <input type="submit" value="提交">{{ msg }}
+    </form>
+{% endblock %}

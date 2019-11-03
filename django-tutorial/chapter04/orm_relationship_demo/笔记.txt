@@ -1,0 +1,56 @@
+5.外键和表关系：
+
+外键：
+
+在MySQL中， 表有两种引擎， 一种是InnoDB，另外一种是myisam。 如果使用的是InnoDB引擎， 是支持外键约束的， 外键的存在使得ORM框架在处理表关系的时候异常的强大， 因此这里我们首先来介绍下外键在Django中的使用。
+
+1. 类定义为 class ForeignKey(to, on_delete, **options)。 第一个参数值引用的是哪个模型， 第二个参数是在使用外键引用的模型数据被删除了， 这个字段该如何处理， 比如有一个CASCADE， SET_NULL等， 这里以一个实际案例来说明。 比如有个User 和一个Article 两个模型， 一个User可以发表多篇文章， 一个Article只能有一个Author， 并且通过外键进行引用， 那么相关的示例代码如下：
+
+    class User(models.Model):
+    	username = models.CharField(max_length=20)
+    	password = models.CharField(max_length=100)
+
+    class Article(models.Model):
+    	title = models.CharField(max_length=100)
+    	content = models.TextField()
+
+    	author = models.ForeignKey("User", on_delete=models.CASCADE)
+
+以上使用 ForeignKey 来定义模型之间的关系， 即在article的实例中可以通过author属性来操作对应的User模型， 这样使用起来非常方便， 实例代码如下：
+
+    article = Article(title='abc', content='123qwe')
+    author = User(username='张三', password='123456')
+    article.author = author
+    article.save()
+
+
+1. 如果想引用另外一个app的模型， 那么应该在传递to参数的时候， 使用app.model_name进行指定， 以上示例为例， 如果User 和 Article不是在同一个app 中， 那么引用的时候示例代码如下：
+
+    class User(models.Model):
+    	username = models.CharField(max_length=20)
+    	password = models.CharField(max_length=100)
+
+    class Article(models.Model):
+    	title = models.CharField(max_length=100)
+    	content = models.TextField()
+
+    	author = models.ForeignKey("user.User", on_delete=models.CASCADE)
+
+1. 如果模型的外键引用的是本身自己这个模型， 那么to参数可以为 ‘self', 或者是这个模型的名字， 在论坛开发中， 一般评论都可以进行二级评论， 即可以针对另外一个评论进行评论， 那么定义模型的时候就需要使用外键来引用自身， 代码如下：
+
+    class Comment(models.Model):
+    	content = models.TextField()
+    	orign_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    	# 或者
+    	# orign_comment = models.ForeignKey('Comment', on_delete=models.CASCADE, null=True)
+
+2. 添加文章：
+    # category_id 不能为空 即：null=False的情况
+    category = Category.objects.first()
+
+    article = Article(title='爷爷', content='sdffea22122')
+    article.author = FrontUser.objects.first()
+    # 加上 参数bulk=False 不用.save就直接保存数据库
+    category.articles.add(article, bulk=False)
+
+

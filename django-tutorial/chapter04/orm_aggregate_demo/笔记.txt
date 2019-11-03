@@ -1,0 +1,26 @@
+聚合函数笔记：
+聚合函数：
+
+- 聚合函数都是放在 django.db.models 下面
+- 聚合函数不能单独的执行， 需要放在一些可以执行聚合函数的方法下面去执行 比如：
+      result = Book.objects.aggregate(Avg('price'))
+- 聚合函数执行完成后， 给这个聚合函数的值取个名字， 取名字的规则，默认是”field+__+聚合函数名字“, 如果不想使用默认名字， 那么可以在使用聚合函数时候传递关键字参数进去， 参数的名字就是聚合函数执行完成的名字， 示例代码如下：
+      result = Book.objects.aggregate(avg=Avg('price'))
+
+       以上传递了关键字参数 avg=Avg('price'), 以后Avg聚合函数的名字就叫做avg
+
+- 'aggregate'： 这个方法不会返回一个“QuerySet'对象， 而是返回一个字典， 这个字典的key就是聚合函数的名字1
+
+
+
+1. Avg: 求平均值， 比如想要获取所以图书的平均价格， 代码如下：
+
+    from django.db.models import Avg
+    result = Book.objects.aggregate(my_avg=Avg('price'))
+    print(result)
+
+
+
+
+
+

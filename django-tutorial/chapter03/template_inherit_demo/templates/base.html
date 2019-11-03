@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>base</title>
+</head>
+<body>
+<header>
+     <ul>
+         <li><a href="/">首页</a></li>
+         <li><a href="{% url 'company' %}">公司</a></li>
+         <li><a href="{% url 'school' %}">学校</a></li>
+         <li>{{ username }}</li>
+     </ul>
+</header>
+    <div class="content">
+        {% block content %}
+            ---我是父模板中的代码---
+        {% endblock %}
+    </div>
+<footer>
+    这是footer部分
+</footer>
+</body>
+</html>

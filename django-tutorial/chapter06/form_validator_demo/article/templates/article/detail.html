@@ -1,0 +1,11 @@
+{% extends 'article/base.html' %}
+
+{% block detail %}
+    <div class="topic-title">
+        <div class="topic-title-main float-left">
+            <h1>{{ article.title }}</h1>
+        </div>
+        <div class="c"></div>
+    </div>
+    {{ article.content }}
+{% endblock %}

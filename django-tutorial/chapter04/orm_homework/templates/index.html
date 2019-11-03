@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content  %}
+    <table>
+    <thead>
+    <tr style="background: pink">
+        <th>序号</th>
+        <th>学生</th>
+        {% for course in courses %}
+            <th>{{ course.name }}</th>
+        {% endfor %}
+
+    </tr>
+    </thead>
+    <tbody>
+        {% for score in scores %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                {% for i in score %}
+                    <td>{{ i }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+
+    </tbody>
+    </table>
+
+
+    </ul>
+{% endblock %}

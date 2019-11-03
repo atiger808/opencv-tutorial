@@ -1,0 +1,87 @@
+4 ORM模型常用字段
+
+模型常用属性
+
+AutoField
+
+    # 整型
+
+
+
+BigAutoField
+
+    # 长整型
+
+BooleanField:
+
+    # 在定义字段的时候，如果没有指定null=True, 那么默认情况下， null=False
+    # 就是不能为空
+    # 如果要使用可以为null的BooleanField, 那么应该使用NullBooleanField (可以为空)
+    # 来代替BooleanField
+
+
+
+CharField
+
+    # CharField, 默认必须定义max_length属性， 如果超过254个字符， 就不建议使用了
+    # 就推荐使用TextField,
+
+DateField
+
+    # 时间类型， 在数据库层是time类型， 在python中是datetime.time类型
+
+
+
+EmailField
+
+    # 类似于CharField, 在数据库层也是一个varchar类型， 最大长度是254个字符
+
+FileField
+
+    # 用于存储文件的， 参考后面文件上传章节
+
+ImageField
+
+    # 用于存储图片文件的， 参考后面图片上传章节
+
+FloatField
+
+    # 浮点类型， 映射到数据库是float类型
+
+IntegerField
+
+    # 整型， 值区间 -2147483648 -- 2147483647
+
+BigIntegerField
+
+    # 大整型， 值区间 -9223372036854775808 -- 9223372036854775807
+
+PositiveIntegerField
+
+    # 正整型， 值区间 0 -- 2147483647
+
+SmallIntegerField
+
+    # 小整型， 值区间 -32768 -- 32767
+
+PositiveSmallIntegerField
+
+    # 正小整型， 值区间 0 -- 32767
+
+TextField
+
+    # 大量的文本类型， 映射到数据库是longtext 类型
+
+UUIDField
+
+    # 只能存储uuid,格式的字符串， uuid是一个32位的全球唯一的字符串， 一般用来做主键
+
+URLField
+
+    # 类似于CharField, 只不过只能来存储url格式的字符串， 并且默认的max_length是200
+
+
+
+Field的常用参数：
+
+    null = False

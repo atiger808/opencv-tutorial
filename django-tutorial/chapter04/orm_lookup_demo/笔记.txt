@@ -1,0 +1,11 @@
+查询操作
+在windows 操作系统中mysql的排序规则(collation)是utf8-genneral无论什么都是大小写不敏感
+在linux 系统下 mysql的排序规则(collation)是utf8-bin 则大小写敏感
+
+exact 相当于= 区分大小写
+
+iexact 相当于LIKE  不区分大小写
+
+contains  包含的意思  区分大小写
+
+icontains  包含的意思  不区分大小写

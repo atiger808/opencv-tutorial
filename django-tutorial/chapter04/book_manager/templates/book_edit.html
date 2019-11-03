@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="" method="post">
+    {% csrf_token %}
+        <p>
+            <input type="hidden" name="book_id" value="{{ book.0 }}">
+            书名：<input type="text" name="name" placeholder="{{ book.1 }}">
+        </p>
+        <p>
+            作者：<input type="text" name="author" placeholder="{{ book.2 }}">
+        </p>
+        <p>
+            <input type="submit" value="保存"><span>{{ msg }}</span>
+        </p>
+
+
+    </form>
+{% endblock %}

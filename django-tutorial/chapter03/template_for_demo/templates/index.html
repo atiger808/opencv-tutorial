@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Title</title>
+</head>
+<body>
+    <ul>
+        {% for book in books %}
+            <li>{{ book }}</li>
+        {% endfor %}
+        {% for key, value in persons.items %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+    <table>
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>书名</td>
+                <td>作者</td>
+                <td>价格</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book_list in book_lists %}
+                {% if forloop.first %}
+                    <tr style="background: red;">
+                {% elif forloop.last %}
+                    <tr style="background: pink;">
+                {% else %}
+                    <tr>
+                {% endif %}
+                    <td>{{ forloop.revcounter0 }}</td>
+                    <td>{{ book_list.name }}</td>
+                    <td>{{ book_list.auth }}</td>
+                    <td>{{ book_list.price }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment }}</li>
+        {% empty %}
+            <li>没有任何评论</li>
+        {% endfor %}
+
+    </ul>
+</body>
+</html>

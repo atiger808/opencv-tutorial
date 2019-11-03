@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>小说网</title>
+    <link rel="stylesheet" href="{% static 'article/base.css' %}">
+</head>
+<body>
+<header>
+    <div class="hdlogo"><img src="" alt="小说网"></div>
+    <div class="header-wrap">
+        <div class="header">
+            <div class="logo"><a href="" name="top">小说网</a></div>
+
+        </div>
+    </div>
+</header>
+<div class="main-wrap">
+    <div class="main">
+        <div class="main-content">
+            <div class="nav-title">
+                <div class="float-left fs14"><a href="">视频网</a></div>
+                <div class="float-right fs14"><a href="{% url 'article:index' %}"><font color="#ffc0cb">小说</font></a></div>
+            </div>
+            <div class="main-box home-box-list">
+                {% block content %}
+                
+                {% endblock %}
+                {% block detail %}
+                
+                {% endblock %}
+            </div>
+        </div>
+        <div class="main-sider">
+            <div class="sider-box">
+                <div class="sider-box-title">热门主题</div>
+                <div class="sider-box-content">
+                    <div class="btn">
+                        {% block sider-btn %}
+                        
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+<div class="footer-wrap">
+    <div class="footer">
+        <p>
+            © Copyright
+            <a href="">小说网</a>
+        </p>
+    </div>
+</div>
+</footer>
+</body>
+</html>
