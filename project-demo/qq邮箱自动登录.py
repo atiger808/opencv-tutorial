@@ -18,19 +18,23 @@ url = 'https://mail.qq.com/cgi-bin/loginpage'
 
 driver = webdriver.Chrome('C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe')
 
+USERNAME = '****'
+PASSWORD = '****'
+
 def qq_login(url):
     driver.get(url)
-    form = driver.find_element_by_id('loginform')
+    # form = driver.find_element_by_id('loginform')
     driver.switch_to.frame('login_frame')
     user = driver.find_element_by_id('u')
     user.clear()
-    user.send_keys('594542251')
+    user.send_keys(USERNAME)
     password = driver.find_element_by_id('p')
     password.clear()
-    password.send_keys('poo..14755')
+    password.send_keys(PASSWORD)
     time.sleep(3)
     driver.find_element_by_id('login_button').click()
     time.sleep(3)
-    driver.find_element_by_partial_link_text('收件箱').click()
+    driver.find_element_by_partial_link_text(u'收件箱').click()
 
-qq_login(url)
+if __name__ == '__main__':
+    qq_login(url)
