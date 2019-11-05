@@ -10,7 +10,7 @@ import os
 os.chdir('d:\\img\\')
 
 def viewImage(image):
-    cv2.namedWindow('Display', cv2.WINDOW_NORMAL)
+    cv2.namedWindow('Display', cv2.WINDOW_AUTOSIZE)
     cv2.imshow('Display', image)
     cv2.waitKey()
     cv2.destroyAllWindows()

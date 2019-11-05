@@ -8,7 +8,7 @@
 import cv2
 import numpy as np
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('d:\\img\\road.mp4')
 
 while(1):
     # 读物视频中的每一帧

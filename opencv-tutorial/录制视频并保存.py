@@ -10,23 +10,27 @@
 我们也释放out
 '''
 
-import cv2 as cv
+import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import os
 os.chdir('e:\\MP4\\')
-cap = cv.VideoCapture(0)
-fourcc = cv.VideoWriter_fourcc(*'XVID')
-out = cv.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
+cap = cv2.VideoCapture(0)
+# 指定fourcc编解码
+# fourcc = cv2.VideoWriter_fourcc(*'XVID')
+# fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter('output.mp4', fourcc, 20, (640, 480), True)
 
-while(True):
+while(cap.isOpened):
     ret, frame = cap.read()
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # cv2.imshow('gray', gray)
+    cv2.imshow('o', frame)
     out.write(frame)
-    cv.imshow('gray', gray)
-    if cv.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
 out.release()
-cv.destroyAllWindows()
+cv2.destroyAllWindows()

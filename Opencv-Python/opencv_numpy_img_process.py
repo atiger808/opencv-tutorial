@@ -12,12 +12,12 @@ import imageio
 
 os.chdir('d:\\img\\')
 
-img = cv2.imread('game.jpg')
-print(img.shape)
-low_pixel = img<20
-if low_pixel.any() == True:
-    print(low_pixel.shape)
-img[low_pixel] = random.randint(200, 225)
+img = cv2.imread('bird.jpg')
+# print(img.shape)
+# low_pixel = img<20
+# if low_pixel.any() == True:
+#     print(low_pixel.shape)
+# img[low_pixel] = random.randint(200, 225)
 w, h = img.shape[:2]
 # 创建矢量
 x, y = np.ogrid[:w, :h]
@@ -26,11 +26,13 @@ cen_x, cen_y = w/2, h/2
 # 测量从中心到每个边界像素的距离
 distance_from_the_center = np.sqrt((x - cen_x) ** 2 + (y - cen_y) ** 2)
 # 选择半径值
-radius = (h/2)
+radius = (w/2)
 # 使用逻辑操作符 >
-circular_img = distance_from_the_center>radius
+circular_img = (distance_from_the_center>190)&(distance_from_the_center<200)
+# circular_img = distance_from_the_center>100
+print(circular_img)
 # 给所有半径外的像素值分配零值， 即黑色
-img[circular_img] = 0
+img[circular_img] = [255]
 
 cv2.imshow('original', img)
 cv2.waitKey()

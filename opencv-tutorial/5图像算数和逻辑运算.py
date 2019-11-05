@@ -21,15 +21,24 @@ img2gray = cv.cvtColor(logo_img, cv.COLOR_BGR2GRAY)
 # 二值化
 ret,mask  = cv.threshold(img2gray, 220, 255, cv.THRESH_BINARY_INV)
 cv.imshow('mask_', mask)
+
+# 按位运算
 mask_inv = cv.bitwise_not(mask)
 img1_bg = cv.bitwise_and(roi,  roi, mask=mask_inv)
 img2_fg = cv.bitwise_and(logo_img, logo_img, mask=mask)
 
+# 图像加法
 dst = cv.add(img1_bg, img2_fg)
 base_img[0:rows, 0:cols] = dst
 cv.imwrite('img2_add_logo.jpg', base_img)
-
 cv.imshow('dst', dst)
+
+# 图像混合
+im1 = cv.imread('circle.jpg')
+im2 = cv.imread('hh3.jpg')
+complx_dst = cv.addWeighted(im1, 0.4, im2, 0.7, 0)
+cv.imshow('complx', complx_dst)
+
 cv.imshow('base_img', base_img)
 cv.imshow('mask_inv', mask_inv)
 cv.imshow('mask', mask)

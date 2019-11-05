@@ -41,6 +41,7 @@ def draw(event, x, y, flags, param):
         cv2.circle(img, (ix, iy), 5, (0, 0, 0), -1)
         print('down--', ix, iy)
 
+
     elif event == cv2.EVENT_LBUTTONUP:
         status.append(0)
         if drawing == True and ix != x and iy != y:
@@ -52,8 +53,13 @@ def draw(event, x, y, flags, param):
                 pts = [(ix, iy), (x, y)]
                 start_point = min(pts)
                 end_point = max(pts)
-                rect = o[start_point[1]:end_point[1], start_point[0]:end_point[0]]
-                rect[:, :, :] = [255, 255, 255]
+                rect = img[start_point[1]:end_point[1], start_point[0]:end_point[0]]
+                if event == cv2.EVENT_LBUTTONUP:
+                    color = o[y, x]
+
+                dst[start_point[1]:end_point[1], start_point[0]:end_point[0]] = color
+                img[start_point[1]:end_point[1], start_point[0]:end_point[0]] = color
+                print('颜色：',color)
                 cv2.imshow('rect', rect)
                 drawing = False
                 print('up', x, y)
@@ -61,7 +67,7 @@ def draw(event, x, y, flags, param):
                 print(pts)
 
     elif mode == 's':
-        cv2.imwrite('dst.jpg', img)
+        cv2.imwrite('dst.jpg', dst)
         print('保存成功')
         mode = True
     elif mode == 'a':
@@ -77,7 +83,7 @@ def draw(event, x, y, flags, param):
 def clear(event, x, y, flags, param):
     global temp_t
     if event == cv2.EVENT_MBUTTONUP:
-        temp_t = temp.copy()
+        img = o.copy()
 
 
 if __name__ == '__main__':
@@ -86,19 +92,12 @@ if __name__ == '__main__':
     imgname = filedialog.askopenfilename()
     o = cv2.imread(imgname)
     img = o.copy()
-    w, h = o.shape[:2]
-    temp = np.zeros_like(o)
-    temp[:,:,:] = [255, 255, 255]
-    cv2.imwrite('blank.jpg', temp)
-    temp_t = temp.copy()
+    dst = o.copy()
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)
-    cv2.namedWindow('temp', cv2.WINDOW_NORMAL)
     cv2.setMouseCallback('image', draw)
-    cv2.setMouseCallback('temp', clear)
 
     while (1):
         cv2.imshow('image', img)
-        cv2.imshow('temp', temp_t)
         k = cv2.waitKey(1)
         if k == ord('q'):
             break

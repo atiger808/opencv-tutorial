@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import os
 os.chdir('e:\\MP4\\')
 
-cap = cv2.VideoCapture('vtest.avi')
+cap = cv2.VideoCapture(0)
 while(cap.isOpened()):
     ret, frame = cap.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)

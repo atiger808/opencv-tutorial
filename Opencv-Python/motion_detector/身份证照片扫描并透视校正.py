@@ -2,7 +2,7 @@
 # @Time     : 2019/8/14 13:22
 # @Author   : Ole211
 # @Site     : 
-# @File     : 噪音下提取图像轮廓.py    
+# @File     : 身份证照片扫描并透视校正.py
 # @Software : PyCharm
 import cv2
 import os

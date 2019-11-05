@@ -9,12 +9,12 @@ import cv2 as cv
 import numpy as np
 import os
 
-os.chdir('d:\\img\\')
+os.chdir('d:\\video\\src\\')
 
 # 1, 加载视频
 cap = cv.VideoCapture('road.mp4')
 # 背景分离
-fgbg = cv.createBackgroundSubtractorMOG2(detectShadows = True)
+fgbg = cv.createBackgroundSubtractorMOG2()
 kernelOp = np.ones((3, 3), np.uint8)
 kernelCl = np.ones((5, 5), np.uint8)
 areaTH = 1000
@@ -35,7 +35,8 @@ while(cap.isOpened()):
         # 选出高亮区域
         area_pos = np.array([[h // 2 - 100, w // 2], [h // 2 + 100, w // 2], [h, w], [0, w]])
         base = np.zeros(frame.shape, dtype='uint8')
-        area_mask = cv.fillPoly(base, [area_pos], [100, 200, 0])
+        area_mask = cv.fillPoly(base, [area_pos], [100, 0, 0])
+        cv.imshow('area_mask', area_mask)
         # area_mask = cv.bitwise_and(frame, frame, mask=area_mask)
         cv.addWeighted(area_mask, 1.0, frame, 1.0, 0, frame)
 
@@ -55,7 +56,7 @@ while(cap.isOpened()):
         cv.imshow('mask', mask)
 
         # 寻找轮廓
-        _, contours0, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
+        contours0, hierarchy = cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
         for cnt in contours0:
             # 获取轮廓的面积
             area = cv.contourArea(cnt)
@@ -77,7 +78,8 @@ while(cap.isOpened()):
             cv.imshow('Contours', frame)
 
         # frame2 = frame
-    except:
+    except Exception as e:
+        print(e)
         print('EOF')
         break
 
@@ -88,7 +90,7 @@ while(cap.isOpened()):
     # frame2 = cv.polylines(frame2, [line1], False, (255, 0, 0), thickness=2)
     # frame2 = cv.polylines(frame2, [line2], True, (255, 0, 0), thickness=2)
     # cv.imshow('Frame 2', frame2)
-    k = cv.waitKey(30) & 0xFF
+    k = cv.waitKey() & 0xFF
     if k == 27:
         break
 cap.release()

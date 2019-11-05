@@ -10,8 +10,9 @@ import os
 import time
 
 bot = Bot(cache_path=True)
+embed()
 
-def send_msg(filename, record_screenshot):
+def send_msg(filename):
     try:
         my_friend = bot.friends().search(u'道法自然')[0]
         warningTime = os.path.splitext(os.path.split(filename)[-1])[0]
@@ -32,5 +33,4 @@ def send_msg(filename, record_screenshot):
         pass
 
 if __name__ == '__main__':
-    pass
-    # send_msg('./image/2019-04-26 17-21-27.jpg')
+    send_msg('./image/2019-08-17 16_52_09.jpg')
